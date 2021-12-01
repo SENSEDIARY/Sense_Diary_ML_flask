@@ -56,7 +56,6 @@ jobs:
           application_name: Capstone_Flask
           environment_name: Capstoneflask-env  
           wait_for_deployment: true
-          use_existing_version_if_available: true
-          version_label: "python-${{steps.current-time.outputs.formattedTime}}"
+          version_label: "python-${{ steps.format-time.outputs.replaced }}"
           region: ap-northeast-2  
           deployment_package: deploy.zip  
