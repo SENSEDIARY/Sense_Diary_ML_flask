@@ -2,18 +2,14 @@ import os
 import flask
 from flask import Flask, request, render_template
 import pandas as pd
-import numpy as np
 import ktrain
-import tensorflow as tf
 import random
-from ktrain import text
 from flask_restful import Resource, Api
 
 app = Flask(__name__)
 api = Api(app)
 
 # 메인 페이지 라우팅
-@app.route('/')
 @app.route('/index')
 def index():
     return flask.render_template('index.html')
