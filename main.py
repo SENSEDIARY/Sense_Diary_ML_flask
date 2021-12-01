@@ -1,3 +1,4 @@
+import os
 import flask
 from flask import Flask, request, render_template
 import pandas as pd
@@ -8,17 +9,17 @@ import random
 from ktrain import text
 from flask_restful import Resource, Api
 
-application = Flask(__name__)
-api = Api(application)
+app = Flask(__name__)
+api = Api(app)
 
 # 메인 페이지 라우팅
-@application.route('/')
-@application.route('/index')
+@app.route('/')
+@app.route('/index')
 def index():
     return flask.render_template('index.html')
 
 #데이터 예측 처리
-@application.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST'])
 def make_prediction():
     if request.method == 'POST':
 
@@ -61,4 +62,5 @@ def make_prediction():
 
 if __name__ == '__main__':
     # Flask 서비스 스타트
-    application.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
