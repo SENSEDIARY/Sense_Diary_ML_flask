@@ -55,7 +55,8 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: Capstone_Flask
           environment_name: Capstoneflask-env  
-          wait_for_deployment: true  
+          wait_for_deployment: true
+          use_existing_version_if_available: true
           version_label: "python-${{steps.current-time.outputs.formattedTime}}"
           region: ap-northeast-2  
           deployment_package: deploy.zip  
