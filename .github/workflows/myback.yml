@@ -22,7 +22,7 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} 
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
-      AWS_REGION: 'us-east-1'  
+      AWS_REGION: 'ap-northeast-2'  
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -62,5 +62,5 @@ jobs:
           environment_name: Capstoneflask-env  
           wait_for_deployment: true  
           version_label: "python-${{ steps.format-time.outputs.replaced }}"
-          region: us-east-1  
+          region: ap-northeast-2  
           deployment_package: deploy.zip  
