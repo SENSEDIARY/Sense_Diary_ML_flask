@@ -59,7 +59,7 @@ def make_prediction():
         text = text.lower()
 
         # URL 전처리
-        text =re.sub(urlPattern, ' URL', text)
+        text = re.sub(urlPattern, ' URL', text)
 
         # emojis 전처리
         for emoji in emojis.keys():
