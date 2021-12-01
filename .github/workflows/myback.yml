@@ -58,4 +58,4 @@ jobs:
           wait_for_deployment: true  
           version_label: "python-${{ steps.format-time.outputs.replaced }}"
           region: ap-northeast-2  
-          deployment_package: deploy.zip  
+          deployment_package: flask_deploy.zip  
