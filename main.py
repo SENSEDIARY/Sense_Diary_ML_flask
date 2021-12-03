@@ -30,8 +30,6 @@ def make_prediction():
     text = params['content']
     print(text)
 
-
-
     if not text: return render_template('index.html', result = 'No result')
 
     # # 텍스트 전처리
@@ -46,22 +44,22 @@ def make_prediction():
               ';-)': 'wink', 'O:-)': 'angel', 'O*-)': 'angel', '(:-D': 'gossip', '=^.^=': 'cat'}
 
     ## Defining set containing all stopwords in english.
-    stopwordlist = ['a', 'about', 'above', 'after', 'again', 'ain', 'all', 'am', 'an',
-                    'and', 'any', 'are', 'as', 'at', 'be', 'because', 'been', 'before',
-                    'being', 'below', 'between', 'both', 'by', 'can', 'd', 'did', 'do',
-                    'does', 'doing', 'down', 'during', 'each', 'few', 'for', 'from',
-                    'further', 'had', 'has', 'have', 'having', 'he', 'her', 'here',
-                    'hers', 'herself', 'him', 'himself', 'his', 'how', 'i', 'if', 'in',
-                    'into', 'is', 'it', 'its', 'itself', 'just', 'll', 'm', 'ma',
-                    'me', 'more', 'most', 'my', 'myself', 'now', 'o', 'of', 'on', 'once',
-                    'only', 'or', 'other', 'our', 'ours', 'ourselves', 'out', 'own', 're',
-                    's', 'same', 'she', "shes", 'should', "shouldve", 'so', 'some', 'such',
-                    't', 'than', 'that', "thatll", 'the', 'their', 'theirs', 'them',
-                    'themselves', 'then', 'there', 'these', 'they', 'this', 'those',
-                    'through', 'to', 'too', 'under', 'until', 'up', 've', 'very', 'was',
-                    'we', 'were', 'what', 'when', 'where', 'which', 'while', 'who', 'whom',
-                    'why', 'will', 'with', 'won', 'y', 'you', "youd", "youll", "youre",
-                    "youve", 'your', 'yours', 'yourself', 'yourselves']
+    # stopwordlist = ['a', 'about', 'above', 'after', 'again', 'ain', 'all', 'am', 'an',
+    #                 'and', 'any', 'are', 'as', 'at', 'be', 'because', 'been', 'before',
+    #                 'being', 'below', 'between', 'both', 'by', 'can', 'd', 'did', 'do',
+    #                 'does', 'doing', 'down', 'during', 'each', 'few', 'for', 'from',
+    #                 'further', 'had', 'has', 'have', 'having', 'he', 'her', 'here',
+    #                 'hers', 'herself', 'him', 'himself', 'his', 'how', 'i', 'if', 'in',
+    #                 'into', 'is', 'it', 'its', 'itself', 'just', 'll', 'm', 'ma',
+    #                 'me', 'more', 'most', 'my', 'myself', 'now', 'o', 'of', 'on', 'once',
+    #                 'only', 'or', 'other', 'our', 'ours', 'ourselves', 'out', 'own', 're',
+    #                 's', 'same', 'she', "shes", 'should', "shouldve", 'so', 'some', 'such',
+    #                 't', 'than', 'that', "thatll", 'the', 'their', 'theirs', 'them',
+    #                 'themselves', 'then', 'there', 'these', 'they', 'this', 'those',
+    #                 'through', 'to', 'too', 'under', 'until', 'up', 've', 'very', 'was',
+    #                 'we', 'were', 'what', 'when', 'where', 'which', 'while', 'who', 'whom',
+    #                 'why', 'will', 'with', 'won', 'y', 'you', "youd", "youll", "youre",
+    #                 "youve", 'your', 'yours', 'yourself', 'yourselves']
 
     # # stopword
     # stopword_nltk = stopwords.words('english')
@@ -78,6 +76,9 @@ def make_prediction():
 
     # 소문자 변환
     text = text.lower()
+
+    # # ' 제거
+    # text = text.replace("'", "")
 
     # URL 전처리
     text = re.sub(urlPattern, ' URL', text)
@@ -98,12 +99,12 @@ def make_prediction():
     preprocess_text = ''
     for word in text.split():
         # Checking if the word is a stopword.
-        if word not in stopwordlist:
-            if len(word) > 1:
-                # Lemmatizing the word.
-                # word = wordLemm.lemmatize(word)
+            # if len(word) > 1:
+            #     # Lemmatizing the word.
+            #     # word = wordLemm.lemmatize(word)
 
-                preprocess_text += (word + ' ')
+        preprocess_text += (word + ' ')
+    print(preprocess_text)
 
     # 첫 번째 컬럼을 index로 사용하도록 지정하여 로드(us 데이터만 사용)
     df_us = pd.read_csv('./data/youtube_us.csv', index_col=0)
@@ -141,6 +142,7 @@ def make_prediction():
 
     # 결과 list [기쁨 확률, 화남 확률, 슬픔 확률, 감정 라벨, 유튜브 id]
     # result = [happy, angry, cry, sentiment, vid]
+    print(text)
 
     # return render_template('index.html')
     # return render_template('index.html', result = result)
