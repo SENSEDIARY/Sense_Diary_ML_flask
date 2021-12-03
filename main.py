@@ -144,7 +144,6 @@ def make_prediction():
 
     # 결과 list [기쁨 확률, 화남 확률, 슬픔 확률, 감정 라벨, 유튜브 id]
     # result = [happy, angry, cry, sentiment, vid]
-    print(text)
 
     # return render_template('index.html')
     # return render_template('index.html', result = result)
