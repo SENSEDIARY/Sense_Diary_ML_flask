@@ -31,7 +31,7 @@ jobs:
           python-version: "3.7"
       
       - name: Generate deployment package 
-        run: zip -r deploy.zip . -x '*.git*'
+        run: zip -r deploy_v2.zip . -x '*.git*'
         
       - name: Get timestamp
         uses: gerred/actions/current-time@master
@@ -58,4 +58,4 @@ jobs:
           wait_for_deployment: true
           version_label: "python-${{ steps.format-time.outputs.replaced }}"
           region: ap-northeast-2  
-          deployment_package: deploy.zip  
+          deployment_package: deploy_v2.zip  
