@@ -136,7 +136,7 @@ dmypy.json
 
 # frontend
 /picture-diary
-./package-lock.json
+package-lock.json
 
 #eb
-myback.yml
+/.github/workflows
