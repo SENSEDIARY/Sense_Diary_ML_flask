@@ -44,22 +44,22 @@ def make_prediction():
               ';-)': 'wink', 'O:-)': 'angel', 'O*-)': 'angel', '(:-D': 'gossip', '=^.^=': 'cat'}
 
     ## Defining set containing all stopwords in english.
-    # stopwordlist = ['a', 'about', 'above', 'after', 'again', 'ain', 'all', 'am', 'an',
-    #                 'and', 'any', 'are', 'as', 'at', 'be', 'because', 'been', 'before',
-    #                 'being', 'below', 'between', 'both', 'by', 'can', 'd', 'did', 'do',
-    #                 'does', 'doing', 'down', 'during', 'each', 'few', 'for', 'from',
-    #                 'further', 'had', 'has', 'have', 'having', 'he', 'her', 'here',
-    #                 'hers', 'herself', 'him', 'himself', 'his', 'how', 'i', 'if', 'in',
-    #                 'into', 'is', 'it', 'its', 'itself', 'just', 'll', 'm', 'ma',
-    #                 'me', 'more', 'most', 'my', 'myself', 'now', 'o', 'of', 'on', 'once',
-    #                 'only', 'or', 'other', 'our', 'ours', 'ourselves', 'out', 'own', 're',
-    #                 's', 'same', 'she', "shes", 'should', "shouldve", 'so', 'some', 'such',
-    #                 't', 'than', 'that', "thatll", 'the', 'their', 'theirs', 'them',
-    #                 'themselves', 'then', 'there', 'these', 'they', 'this', 'those',
-    #                 'through', 'to', 'too', 'under', 'until', 'up', 've', 'very', 'was',
-    #                 'we', 'were', 'what', 'when', 'where', 'which', 'while', 'who', 'whom',
-    #                 'why', 'will', 'with', 'won', 'y', 'you', "youd", "youll", "youre",
-    #                 "youve", 'your', 'yours', 'yourself', 'yourselves']
+    stopwordlist = ['a', 'about', 'above', 'after', 'again', 'ain', 'all', 'am', 'an',
+                    'and', 'any', 'are', 'as', 'at', 'be', 'because', 'been', 'before',
+                    'being', 'below', 'between', 'both', 'by', 'can', 'd', 'did', 'do',
+                    'does', 'doing', 'down', 'during', 'each', 'few', 'for', 'from',
+                    'further', 'had', 'has', 'have', 'having', 'he', 'her', 'here',
+                    'hers', 'herself', 'him', 'himself', 'his', 'how', 'i', 'if', 'in',
+                    'into', 'is', 'it', 'its', 'itself', 'just', 'll', 'm', 'ma',
+                    'me', 'more', 'most', 'my', 'myself', 'now', 'o', 'of', 'on', 'once',
+                    'only', 'or', 'other', 'our', 'ours', 'ourselves', 'out', 'own', 're',
+                    's', 'same', 'she', "shes", 'should', "shouldve", 'so', 'some', 'such',
+                    't', 'than', 'that', "thatll", 'the', 'their', 'theirs', 'them',
+                    'themselves', 'then', 'there', 'these', 'they', 'this', 'those',
+                    'through', 'to', 'too', 'under', 'until', 'up', 've', 'very', 'was',
+                    'we', 'were', 'what', 'when', 'where', 'which', 'while', 'who', 'whom',
+                    'why', 'will', 'with', 'won', 'y', 'you', "youd", "youll", "youre",
+                    "youve", 'your', 'yours', 'yourself', 'yourselves']
 
     # # stopword
     # stopword_nltk = stopwords.words('english')
@@ -76,9 +76,6 @@ def make_prediction():
 
     # 소문자 변환
     text = text.lower()
-
-    # # ' 제거
-    # text = text.replace("'", "")
 
     # URL 전처리
     text = re.sub(urlPattern, ' URL', text)
@@ -99,11 +96,13 @@ def make_prediction():
     preprocess_text = ''
     for word in text.split():
         # Checking if the word is a stopword.
+        if len(word) > 1:
+            if word not in stopwordlist:
             # if len(word) > 1:
-            #     # Lemmatizing the word.
+            # Lemmatizing the word.
             #     # word = wordLemm.lemmatize(word)
 
-        preprocess_text += (word + ' ')
+                preprocess_text += (word + ' ')
     print(preprocess_text)
 
     # 첫 번째 컬럼을 index로 사용하도록 지정하여 로드(us 데이터만 사용)
@@ -125,6 +124,9 @@ def make_prediction():
     df_us_happy = df_us[df_us['sentiment'] == 'smile']
     # df_us_angry = df_us[df_us['sentiment'] == 'angry']
     df_us_cry = df_us[df_us['sentiment'] == 'sob']
+
+    df_us_happy.reset_index(drop=True, inplace=True)
+    df_us_cry.reset_index(drop=True, inplace=True)
 
     # 난수 활용 임의 영상
     if sentiment in ['smile', 'angry']:  # 기쁨, 화남
