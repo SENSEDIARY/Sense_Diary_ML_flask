@@ -1,3 +1,3 @@
 # Capstone_ML_Flask
 
-Castone ML Flask server
+Capstone ML Flask server
