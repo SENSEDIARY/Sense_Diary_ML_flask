@@ -136,3 +136,4 @@ dmypy.json
 
 # frontend
 /picture-diary
+./package-lock.json
